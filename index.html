@@ -1,0 +1,903 @@
+<!--
+==================================================================
+  RAINBOW RETREAT : DIGITAL GUEST GUIDE
+  Single-file site. Drop this + rainbow_retreat_map.png in a
+  GitHub repo, enable Pages, and point your QR code at the URL.
+------------------------------------------------------------------
+  PLACEHOLDERS TO REPLACE (search for the word "REPLACE" or the
+  yellow-highlighted text on the page):
+    - Wi-Fi network name
+    - Wi-Fi password
+    - Bear bin location (where guests find it)
+    - "Last updated" date in the footer
+  Everything else is filled from the info you provided or verified
+  local sources. Update anytime, and the QR never changes.
+==================================================================
+-->
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Rainbow Retreat Guest Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+  :root{
+    --ink:#14352A;
+    --pine:#1E5A3F;
+    --pine-soft:#2C6B4C;
+    --lake:#1E8592;
+    --lake-deep:#166B76;
+    --wood:#A9632F;
+    --pin:#F4C22B;
+    --bg:#EDF1DD;
+    --bg-2:#E4EBCF;
+    --card:#FBFCF4;
+    --line:rgba(20,53,42,.12);
+    --muted:#5C6B5F;
+    --display:"Bricolage Grotesque",system-ui,sans-serif;
+    --body:"Hanken Grotesk",system-ui,-apple-system,sans-serif;
+    --shadow:0 1px 2px rgba(20,53,42,.06),0 8px 24px rgba(20,53,42,.06);
+    --radius:18px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;} *{animation:none!important;transition:none!important;}}
+
+  body{
+    margin:0;
+    font-family:var(--body);
+    color:var(--ink);
+    background:var(--bg);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .wrap{max-width:680px;margin:0 auto;padding:0 18px;}
+
+  /* ---------- sticky header ---------- */
+  header.bar{
+    position:sticky;top:0;z-index:50;
+    background:rgba(237,241,221,.86);
+    backdrop-filter:saturate(1.2) blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .bar-inner{
+    max-width:680px;margin:0 auto;padding:11px 18px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .pinmark{width:22px;height:22px;flex:none;}
+  .bar-title{font-family:var(--display);font-weight:700;font-size:16px;letter-spacing:-.01em;color:var(--pine);}
+  .bar-sub{font-size:11px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;margin-left:auto;}
+
+  /* ---------- hero ---------- */
+  .hero{padding:44px 0 26px;text-align:center;}
+  .eyebrow{
+    display:inline-block;font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--lake-deep);font-weight:600;margin-bottom:14px;
+  }
+  .hero h1{
+    font-family:var(--display);font-weight:700;
+    font-size:clamp(38px,11vw,60px);line-height:.98;letter-spacing:-.025em;
+    margin:0 0 14px;color:var(--pine);
+  }
+  .hero p{font-size:16.5px;color:var(--muted);max-width:34ch;margin:0 auto;}
+
+  /* ---------- quick chips ---------- */
+  .chips{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin:24px 0 8px;}
+  .chip{
+    display:inline-flex;align-items:center;gap:7px;
+    background:var(--pine);color:#F4F7EA;text-decoration:none;
+    font-weight:600;font-size:14px;padding:10px 16px;border-radius:999px;
+    box-shadow:var(--shadow);transition:transform .12s ease,background .12s ease;
+  }
+  .chip:hover{background:var(--pine-soft);transform:translateY(-1px);}
+  .chip svg{width:15px;height:15px;}
+  .chip.alt{background:var(--lake);}
+  .chip.alt:hover{background:var(--lake-deep);}
+
+  /* ---------- section shell ---------- */
+  section{padding:26px 0;scroll-margin-top:64px;}
+  .s-head{display:flex;align-items:center;gap:11px;margin-bottom:16px;}
+  .s-dot{width:15px;height:19px;flex:none;}
+  .s-label{font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:600;}
+  .s-title{font-family:var(--display);font-weight:600;font-size:25px;letter-spacing:-.02em;margin:2px 0 0;color:var(--ink);}
+
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:20px;box-shadow:var(--shadow);
+  }
+  .card + .card{margin-top:12px;}
+  .card h3{font-family:var(--display);font-weight:600;font-size:17px;margin:0 0 6px;letter-spacing:-.01em;}
+  .card p{margin:0 0 4px;font-size:15px;}
+  .card p:last-child{margin-bottom:0;}
+  .muted{color:var(--muted);}
+
+  /* key-value rows */
+  .kv{display:grid;grid-template-columns:118px 1fr;gap:6px 14px;font-size:15px;align-items:baseline;}
+  .kv dt{color:var(--muted);font-weight:500;}
+  .kv dd{margin:0;font-weight:600;}
+
+  /* placeholder token */
+  .ph{
+    background:var(--pin);color:#3a2c00;border-radius:5px;
+    padding:1px 7px;font-weight:600;font-size:.94em;white-space:nowrap;
+  }
+
+  /* wifi block */
+  .wifi{display:flex;flex-wrap:wrap;gap:14px 26px;align-items:flex-end;}
+  .wifi .field{min-width:130px;}
+  .wifi .lbl{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:3px;}
+  .wifi .val{font-family:var(--display);font-weight:600;font-size:20px;letter-spacing:-.01em;}
+  .copybtn{
+    margin-left:auto;border:1px solid var(--line);background:transparent;color:var(--pine);
+    font-family:var(--body);font-weight:600;font-size:13px;padding:8px 13px;border-radius:10px;cursor:pointer;
+    transition:background .12s ease;
+  }
+  .copybtn:hover{background:var(--bg-2);}
+
+  /* checklist */
+  ul.check{list-style:none;margin:8px 0 0;padding:0;}
+  ul.check li{position:relative;padding:5px 0 5px 27px;font-size:15px;border-top:1px solid var(--line);}
+  ul.check li:first-child{border-top:none;}
+  ul.check li::before{
+    content:"";position:absolute;left:0;top:9px;width:16px;height:16px;border-radius:5px;
+    border:2px solid var(--lake);
+  }
+
+  /* accordions */
+  details{
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:0 18px;margin-top:10px;box-shadow:var(--shadow);overflow:hidden;
+  }
+  details summary{
+    list-style:none;cursor:pointer;padding:16px 0;font-family:var(--display);
+    font-weight:600;font-size:16.5px;display:flex;align-items:center;gap:11px;letter-spacing:-.01em;
+  }
+  details summary::-webkit-details-marker{display:none;}
+  summary .ic{width:20px;height:20px;flex:none;color:var(--lake);}
+  summary .plus{margin-left:auto;color:var(--muted);font-size:20px;transition:transform .15s ease;line-height:1;}
+  details[open] summary .plus{transform:rotate(45deg);}
+  .det-body{padding:0 0 18px;font-size:15px;}
+  .det-body p{margin:0 0 9px;}
+  .det-body p:last-child{margin-bottom:0;}
+  .det-body strong{color:var(--pine);}
+
+  /* callout */
+  .note{
+    border-left:3px solid var(--pin);background:rgba(244,194,43,.10);
+    padding:12px 15px;border-radius:0 12px 12px 0;font-size:14.5px;margin-top:12px;
+  }
+  .note.lake{border-color:var(--lake);background:rgba(30,133,146,.08);}
+  .note strong{color:var(--pine);}
+
+  /* emergency table */
+  .emg{display:grid;gap:10px;}
+  .emg-row{
+    display:flex;justify-content:space-between;align-items:baseline;gap:14px;
+    padding:11px 0;border-top:1px solid var(--line);
+  }
+  .emg-row:first-child{border-top:none;}
+  .emg-row .who{font-weight:600;font-size:15px;}
+  .emg-row .who small{display:block;font-weight:400;color:var(--muted);font-size:12.5px;margin-top:1px;}
+  .emg-row .num{font-family:var(--display);font-weight:600;font-size:15.5px;color:var(--pine);white-space:nowrap;text-align:right;}
+  .emg-row .num small{display:block;font-family:var(--body);font-weight:400;font-size:12px;color:var(--muted);}
+
+  /* season toggle */
+  .seasonbar{display:inline-flex;background:var(--bg-2);border-radius:999px;padding:4px;gap:2px;margin-bottom:16px;}
+  .seasonbar button{
+    border:none;background:transparent;font-family:var(--body);font-weight:600;font-size:13.5px;
+    color:var(--muted);padding:8px 16px;border-radius:999px;cursor:pointer;transition:all .12s ease;
+  }
+  .seasonbar button[aria-pressed="true"]{background:var(--pine);color:#F4F7EA;box-shadow:var(--shadow);}
+
+  .maplink{display:block;margin:4px 0 18px;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow);}
+  .maplink img{width:100%;display:block;}
+  .mapfallback{display:none;padding:20px;background:var(--bg-2);text-align:center;color:var(--muted);font-size:14px;}
+
+  .grid{display:grid;gap:10px;}
+  .spot{
+    background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow);
+  }
+  .spot.hide{display:none;}
+  .spot .top{display:flex;justify-content:space-between;align-items:baseline;gap:10px;}
+  .spot h4{font-family:var(--display);font-weight:600;font-size:16px;margin:0;letter-spacing:-.01em;}
+  .spot .dist{font-size:12.5px;color:var(--lake-deep);font-weight:600;white-space:nowrap;}
+  .spot p{margin:5px 0 0;font-size:14px;color:var(--muted);}
+  .spot .spot-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:13px;flex-wrap:wrap;}
+  .spot .tag{display:inline-block;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--pine);background:var(--bg-2);font-weight:600;padding:4px 10px;border-radius:999px;}
+  .spot-links{display:flex;gap:7px;}
+  .spot-link{
+    display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);background:transparent;
+    color:var(--pine);font-weight:600;font-size:12px;padding:7px 11px;border-radius:9px;text-decoration:none;
+    transition:background .12s ease,border-color .12s ease;white-space:nowrap;
+  }
+  .spot-link:hover{background:var(--bg-2);border-color:var(--lake);}
+  .spot-link svg{width:12px;height:12px;}
+
+  .factgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .fact{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px;box-shadow:var(--shadow);}
+  .fact .n{font-family:var(--display);font-weight:700;font-size:24px;color:var(--lake);letter-spacing:-.02em;}
+  .fact .t{font-size:13px;color:var(--muted);margin-top:2px;}
+
+  footer{padding:34px 0 46px;text-align:center;color:var(--muted);font-size:13px;}
+  footer .fname{font-family:var(--display);font-weight:700;font-size:17px;color:var(--pine);letter-spacing:-.01em;}
+  footer a{color:var(--lake-deep);}
+
+  a{color:var(--lake-deep);}
+  :focus-visible{outline:3px solid var(--lake);outline-offset:2px;border-radius:4px;}
+
+  /* ---------- header contents button ---------- */
+  .menubtn{
+    margin-left:auto;display:inline-flex;align-items:center;gap:7px;
+    background:transparent;border:1px solid var(--line);border-radius:999px;
+    color:var(--pine);font-family:var(--body);font-weight:600;font-size:12.5px;
+    padding:7px 13px;cursor:pointer;text-decoration:none;transition:background .12s ease;
+  }
+  .menubtn:hover{background:var(--bg-2);}
+  .menubtn svg{width:14px;height:14px;}
+
+  /* ---------- quick facts ---------- */
+  .quick,.toc-wrap{scroll-margin-top:64px;}
+  .quick{padding:8px 0;}
+  .qf-wifi{
+    background:var(--pine);color:#EFF4E4;border-radius:var(--radius);
+    padding:18px 20px;box-shadow:var(--shadow);display:flex;flex-wrap:wrap;gap:14px 26px;align-items:flex-end;
+  }
+  .qf-wifi .field{min-width:120px;}
+  .qf-wifi .lbl{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;opacity:.72;font-weight:600;margin-bottom:3px;}
+  .qf-wifi .val{font-family:var(--display);font-weight:600;font-size:20px;letter-spacing:-.01em;color:#fff;}
+  .qf-copy{
+    margin-left:auto;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.08);
+    color:#fff;font-family:var(--body);font-weight:600;font-size:13px;padding:9px 14px;border-radius:10px;cursor:pointer;
+    transition:background .12s ease;
+  }
+  .qf-copy:hover{background:rgba(255,255,255,.18);}
+
+  .qf-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;}
+  .qf-tile{
+    background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px 15px;
+    box-shadow:var(--shadow);text-decoration:none;color:inherit;display:block;
+  }
+  a.qf-tile{transition:border-color .12s ease,transform .12s ease;}
+  a.qf-tile:hover{border-color:var(--lake);transform:translateY(-1px);}
+  .qf-tile .lbl{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:3px;}
+  .qf-tile .val{font-family:var(--display);font-weight:600;font-size:17px;letter-spacing:-.01em;line-height:1.15;}
+  .qf-tile .val small{display:block;font-family:var(--body);font-weight:500;font-size:12.5px;color:var(--lake-deep);margin-top:3px;}
+  .qf-tile.wide{grid-column:1 / -1;display:flex;justify-content:space-between;align-items:center;gap:12px;}
+  .qf-actions{display:flex;gap:8px;flex:none;}
+  .qf-mini{
+    border:1px solid var(--line);background:transparent;color:var(--pine);
+    font-family:var(--body);font-weight:600;font-size:12px;padding:8px 11px;border-radius:9px;cursor:pointer;
+    text-decoration:none;white-space:nowrap;transition:background .12s ease;
+  }
+  .qf-mini:hover{background:var(--bg-2);}
+  .qf-911{
+    grid-column:1 / -1;display:flex;align-items:center;justify-content:center;gap:9px;
+    background:linear-gradient(180deg,#B23A2E,#9A2F25);color:#fff;text-decoration:none;
+    border-radius:14px;padding:14px;font-weight:600;font-size:15px;box-shadow:var(--shadow);
+  }
+  .qf-911 svg{width:18px;height:18px;}
+  .qf-911 b{font-family:var(--display);font-weight:700;}
+
+  /* ---------- table of contents grid ---------- */
+  .toc-wrap{padding:22px 0 10px;}
+  .toc-head{font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:600;text-align:center;margin-bottom:14px;}
+  .toc{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;}
+  .toc a{
+    display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;
+    background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px 6px;
+    text-decoration:none;color:var(--ink);box-shadow:var(--shadow);transition:border-color .12s ease,transform .12s ease;
+  }
+  .toc a:hover{border-color:var(--lake);transform:translateY(-1px);}
+  .toc .ico{width:24px;height:24px;color:var(--pine);}
+  .toc .lb{font-size:11.5px;font-weight:600;line-height:1.15;letter-spacing:-.005em;}
+
+  a.num{text-decoration:none;color:var(--pine);}
+  a.num:hover{text-decoration:underline;}
+
+  @media(max-width:420px){
+    .kv{grid-template-columns:104px 1fr;}
+    .factgrid{grid-template-columns:1fr;}
+    .qf-copy{margin-left:0;}
+    .qf-tile.wide{flex-direction:column;align-items:flex-start;}
+  }
+</style>
+
+<!-- ============ HEADER ============ -->
+<header class="bar">
+  <div class="bar-inner">
+    <svg class="pinmark" viewBox="0 0 24 30" aria-hidden="true">
+      <path d="M12 0C5.9 0 1 4.9 1 11c0 7.7 11 19 11 19s11-11.3 11-19C23 4.9 18.1 0 12 0z" fill="var(--pin)"/>
+      <circle cx="12" cy="11" r="4.4" fill="var(--pine)"/>
+    </svg>
+    <span class="bar-title">Rainbow Retreat</span>
+    <a class="menubtn" href="#contents">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      Contents
+    </a>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- ============ HERO ============ -->
+  <div class="hero">
+    <span class="eyebrow">Kings Beach · Lake Tahoe</span>
+    <h1>Welcome<br>to the pines.</h1>
+  </div>
+
+  <!-- ============ QUICK FACTS ============ -->
+  <div class="quick" id="quick">
+    <div class="qf-wifi">
+      <div class="field">
+        <div class="lbl">Wi-Fi network</div>
+        <div class="val" id="ssid">RainbowWifi Guest</div>
+      </div>
+      <div class="field">
+        <div class="lbl">Password</div>
+        <div class="val" id="pass">L@k3_Taho3</div>
+      </div>
+      <button class="qf-copy" id="copywifi" type="button">Copy password</button>
+    </div>
+
+    <div class="qf-grid">
+      <a class="qf-tile" href="#depart"><div class="lbl">Check-in</div><div class="val">After 4:00 PM</div></a>
+      <a class="qf-tile" href="#depart"><div class="lbl">Check-out</div><div class="val">By 11:00 AM</div></a>
+      <div class="qf-tile"><div class="lbl">Trash day</div><div class="val">Wednesdays</div></div>
+      <a class="qf-tile" href="#contact"><div class="lbl">Host</div><div class="val">Airbnb app<small>Message us &rarr;</small></div></a>
+
+      <div class="qf-tile wide">
+        <div><div class="lbl">Address</div><div class="val">8772 Rainbow Ave<small>Kings Beach, CA 96143</small></div></div>
+        <div class="qf-actions">
+          <a class="qf-mini" href="https://www.google.com/maps/search/?api=1&amp;query=8772+Rainbow+Ave+Kings+Beach+CA+96143" target="_blank" rel="noopener">Open in Maps</a>
+          <button class="qf-mini" id="copyaddr" type="button">Copy</button>
+        </div>
+      </div>
+
+      <a class="qf-911" href="tel:911">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg>
+        Emergency? Dial <b>911</b>
+      </a>
+    </div>
+  </div>
+
+  <!-- ============ TABLE OF CONTENTS ============ -->
+  <div class="toc-wrap" id="contents">
+    <div class="toc-head">Jump to anything</div>
+    <nav class="toc">
+      <a href="#quick"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M5 12.55a11 11 0 0 1 14 0"/><path d="M8.5 16.03a6 6 0 0 1 7 0"/><path d="M12 20h.01"/><path d="M2 8.82a15 15 0 0 1 20 0"/></svg><span class="lb">Wi-Fi</span></a>
+      <a href="#depart"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4"/><path d="M10.85 12.15 20 3M17 6l2 2M15 8l2 2"/></svg><span class="lb">Arrival</span></a>
+      <a href="#manual"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg><span class="lb">House info</span></a>
+      <a href="#help"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 6.5a3.5 3.5 0 0 0-4.9 4.9l-6.1 6.1a1.6 1.6 0 0 0 2.2 2.2l6.1-6.1a3.5 3.5 0 0 0 4.9-4.9l-2.3 2.3-2.2-2.2z"/></svg><span class="lb">Fixes</span></a>
+      <a href="#safety"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span class="lb">Safety</span></a>
+      <a href="#rules"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg><span class="lb">Rules</span></a>
+      <a href="#emergency"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg><span class="lb">Emergency</span></a>
+      <a href="#explore"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5 13 13l-4.5 2.5L11 11z"/></svg><span class="lb">Explore</span></a>
+      <a href="#contact"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span class="lb">Contact</span></a>
+    </nav>
+  </div>
+
+  <!-- ============ ARRIVAL & DEPARTURE ============ -->
+  <section id="depart">
+    <div class="s-head">
+      <svg class="s-dot" viewBox="0 0 15 19" aria-hidden="true"><path d="M7.5 0C3.7 0 .6 3 .6 6.9c0 4.8 6.9 12 6.9 12s6.9-7.2 6.9-12C14.4 3 11.3 0 7.5 0z" fill="var(--pin)"/><circle cx="7.5" cy="6.9" r="2.8" fill="var(--pine)"/></svg>
+      <div><div class="s-label">Coming & going</div><h2 class="s-title">Arrival & departure</h2></div>
+    </div>
+
+    <div class="card">
+      <h3>Getting in</h3>
+      <dl class="kv">
+        <dt>Check-in</dt><dd>After 4:00 PM</dd>
+        <dt>Door</dt><dd>Smart lock, code is in your Airbnb messages</dd>
+        <dt>Address</dt><dd>8772 Rainbow Ave, Kings Beach, CA 96143</dd>
+      </dl>
+    </div>
+
+    <div class="card">
+      <h3>Parking</h3>
+      <p>Up to <strong>4 vehicles</strong>: 2 in the garage, 2 in the driveway. There's <strong>no street parking</strong>, so please keep all cars on the property.</p>
+      <div class="note">Bears are active here. Lock your car and never leave food, groceries, or coolers inside, even in the garage. See <a href="#safety">Tahoe safety</a>.</div>
+    </div>
+
+    <div class="card">
+      <h3>Before you go: check out by 11:00 AM</h3>
+      <ul class="check">
+        <li>Start the dishwasher if there are dishes</li>
+        <li>Bag trash and place it in the bear bin (pickup is <strong>Wednesdays</strong>)</li>
+        <li>Turn off lights, TVs, and the BBQ propane</li>
+        <li>Return remotes, keys, and games to where you found them</li>
+        <li>Close and lock all windows and doors</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section id="contact">
+    <div class="s-head">
+      <svg class="s-dot" viewBox="0 0 15 19" aria-hidden="true"><path d="M7.5 0C3.7 0 .6 3 .6 6.9c0 4.8 6.9 12 6.9 12s6.9-7.2 6.9-12C14.4 3 11.3 0 7.5 0z" fill="var(--pin)"/><circle cx="7.5" cy="6.9" r="2.8" fill="var(--pine)"/></svg>
+      <div><div class="s-label">Need a hand</div><h2 class="s-title">Contact & help</h2></div>
+    </div>
+    <div class="card">
+      <p>Questions, or something not quite right? <strong>Message the host team in the Airbnb app.</strong> It's the fastest way to reach us, and we usually reply quickly, even late at night.</p>
+      <div class="note">If something's broken or out of place, tell us while you're here so we can sort it out. We'd always rather fix it than have you put up with it.</div>
+      <p class="muted" style="margin-top:12px;font-size:14px;">For anything urgent or a safety issue, use <a href="#emergency">Emergencies</a> below.</p>
+    </div>
+  </section>
+
+  <!-- ============ EMERGENCIES ============ -->
+  <section id="emergency">
+    <div class="s-head">
+      <svg class="s-dot" viewBox="0 0 15 19" aria-hidden="true"><path d="M7.5 0C3.7 0 .6 3 .6 6.9c0 4.8 6.9 12 6.9 12s6.9-7.2 6.9-12C14.4 3 11.3 0 7.5 0z" fill="var(--pin)"/><circle cx="7.5" cy="6.9" r="2.8" fill="var(--pine)"/></svg>
+      <div><div class="s-label">If it's serious</div><h2 class="s-title">Emergencies & medical</h2></div>
+    </div>
+
+    <div class="card">
+      <div class="emg">
+        <div class="emg-row">
+          <div class="who">Police, fire, or medical <small>Tell them: 8772 Rainbow Ave, Kings Beach, CA 96143</small></div>
+          <a class="num" href="tel:911">911</a>
+        </div>
+        <div class="emg-row">
+          <div class="who">Nearest ER, open 24/7 <small>Incline Village Community Hospital · about 15 min · 880 Alder Ave, Incline Village, NV</small></div>
+          <a class="num" href="tel:+17758334100">(775) 833-4100</a>
+        </div>
+        <div class="emg-row">
+          <div class="who">Larger hospital ER, open 24/7 <small>Tahoe Forest Hospital · about 25 min · 10121 Pine Ave, Truckee, CA</small></div>
+          <a class="num" href="tel:+15305876011">(530) 587-6011</a>
+        </div>
+        <div class="emg-row">
+          <div class="who">Urgent care <small>Tahoe Forest Urgent Care, Tahoe City · call for hours</small></div>
+          <a class="num" href="tel:+15305506748">(530) 550-6748</a>
+        </div>
+        <div class="emg-row">
+          <div class="who">Walk-in clinic in town <small>Western Sierra Medical Clinic · 8665 Salmon Ave, Kings Beach · limited hours</small></div>
+          <a class="num" href="tel:+15305849762">(530) 584-9762</a>
+        </div>
+        <div class="emg-row">
+          <div class="who">Poison control</div>
+          <a class="num" href="tel:18002221222">1-800-222-1222</a>
+        </div>
+        <div class="emg-row">
+          <div class="who">Sheriff, non-emergency <small>Placer County dispatch</small></div>
+          <a class="num" href="tel:+15308865375">(530) 886-5375</a>
+        </div>
+      </div>
+      <div class="note lake">Hours change a lot in the off-season, so call before driving to urgent care.</div>
+    </div>
+  </section>
+
+  <!-- ============ HOUSE MANUAL ============ -->
+  <section id="manual">
+    <div class="s-head">
+      <svg class="s-dot" viewBox="0 0 15 19" aria-hidden="true"><path d="M7.5 0C3.7 0 .6 3 .6 6.9c0 4.8 6.9 12 6.9 12s6.9-7.2 6.9-12C14.4 3 11.3 0 7.5 0z" fill="var(--pin)"/><circle cx="7.5" cy="6.9" r="2.8" fill="var(--pine)"/></svg>
+      <div><div class="s-label">How things work</div><h2 class="s-title">House manual</h2></div>
+    </div>
+
+    <details>
+      <summary>
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a5 5 0 0 0-5 5v6a5 5 0 0 0 10 0V7a5 5 0 0 0-5-5z"/><path d="M12 8v4"/></svg>
+        Heating and cooling
+        <span class="plus">+</span>
+      </summary>
+      <div class="det-body">
+        <p>The <strong>Nest thermostat</strong> runs on an automatic schedule, so you usually won't need to touch it. If a room feels off, turn the ring to nudge the temperature and it will pick the schedule back up on its own.</p>
+        <p>The house has two levels and warm air rises, so the <strong>lower level can run cool</strong>. There are <strong>space heaters in both downstairs bedroom closets</strong>. Plug them only into the <strong>marked outlets</strong> in those bedrooms. Those outlets are on their own circuit, so the heaters won't trip a breaker.</p>
+        <p>Like most Tahoe homes, there's <strong>no air conditioning</strong>, and it's rarely needed up here. Even in summer the nights cool off, so open the windows in the evening to let the cool air in, then close them and the shades in the morning to keep the heat out.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg>
+        TVs & sound
+        <span class="plus">+</span>
+      </summary>
+      <div class="det-body">
+        <p>Every room has its own TV, so the group can split up.</p>
+        <p>The <strong>living room</strong> is the main setup: a Samsung smart TV with a sound bar, best for a movie or the game. Streaming apps are built in, so open one and sign in.</p>
+        <p>The bedrooms have their own screens too. The <strong>master</strong> (Sony) and the <strong>2nd bedroom</strong> use an Amazon Fire device, and the <strong>kids' room</strong> is a Samsung smart TV.</p>
+        <p>Sign into your own Netflix, Prime, Disney+, or other apps, then <strong>sign out before you leave</strong> so the next guests don't land in your accounts.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3h12v7a6 6 0 0 1-12 0z"/><path d="M16 5h3a2 2 0 0 1 0 4h-3"/><path d="M3 21h14"/></svg>
+        Coffee, tea & the kitchen
+        <span class="plus">+</span>
+      </summary>
+      <div class="det-body">
+        <p>There's a <strong>Nespresso machine</strong> and a <strong>Nespresso milk frother</strong> on the counter.</p>
+        <p><strong>Pods and tea bags</strong> are right next to the coffee maker.</p>
+        <p><strong>Sugar and stevia</strong> are in the kitchen closet; <strong>creamer pods</strong> are in the fridge.</p>
+        <p>The kitchen is stocked with cookware, dishes, and basics. Help yourself.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><circle cx="12" cy="13" r="5"/><path d="M8 6h.01M11 6h.01"/></svg>
+        Laundry
+        <span class="plus">+</span>
+      </summary>
+      <div class="det-body">
+        <p>The <strong>washer and dryer are downstairs</strong>. Detergent is provided, and a normal cycle handles most loads.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11h18M5 11V7a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v4M6 11v8M18 11v8"/><path d="M9 5V3M15 5V3"/></svg>
+        BBQ on the deck
+        <span class="plus">+</span>
+      </summary>
+      <div class="det-body">
+        <p>There's a <strong>gas BBQ grill</strong> on the deck. Open the propane valve, ignite, and close the valve when you're done.</p>
+        <p><strong>Gas only.</strong> By county rule, charcoal grills are not allowed and guests may not bring their own grills. No open fires, fire pits, or campfires anywhere on the property.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l9-4 9 4-9 4-9-4z"/><path d="M3 7v10l9 4 9-4V7"/></svg>
+        Where things are
+        <span class="plus">+</span>
+      </summary>
+      <div class="det-body">
+        <p><strong>Extra blankets and bedding</strong> are in the walk-in closet of each of the three bedrooms.</p>
+        <p><strong>Spares</strong> (batteries, light bulbs, a spare TV remote, the small door-release tool, and a basic toolkit with screwdrivers, a wrench, and a hammer) are in the upstairs hallway closet.</p>
+        <p>The <strong>first aid kit</strong> is in the upstairs hallway closet, next to the spares.</p>
+        <p><strong>Fire extinguishers</strong>: one in the kitchen, one in the downstairs hallway.</p>
+        <p><strong>Space heaters</strong> are in the downstairs bedroom closets. Use the marked outlets.</p>
+        <p>The <strong>electric breaker panel</strong> is outside, on the front wall to the left of the garage door as you face the house.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ GOOD TO KNOW / TROUBLESHOOTING ============ -->
+  <section id="help">
+    <div class="s-head">
+      <svg class="s-dot" viewBox="0 0 15 19" aria-hidden="true"><path d="M7.5 0C3.7 0 .6 3 .6 6.9c0 4.8 6.9 12 6.9 12s6.9-7.2 6.9-12C14.4 3 11.3 0 7.5 0z" fill="var(--pin)"/><circle cx="7.5" cy="6.9" r="2.8" fill="var(--pine)"/></svg>
+      <div><div class="s-label">Quick fixes</div><h2 class="s-title">Good to know</h2></div>
+    </div>
+
+    <details>
+      <summary><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v6M12 22v-6"/><circle cx="12" cy="12" r="3"/></svg>Downstairs feels cold<span class="plus">+</span></summary>
+      <div class="det-body"><p>Warm air rises, so the lower level runs cooler. Grab a <strong>space heater from a downstairs bedroom closet</strong> and plug it into a <strong>marked outlet</strong>. Those outlets are on their own circuit, so the heater won't trip a breaker.</p></div>
+    </details>
+
+    <details>
+      <summary><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14 0M8.5 16a6 6 0 0 1 7 0M12 20h.01M2 8.8a15 15 0 0 1 20 0"/></svg>Wi-Fi dropped<span class="plus">+</span></summary>
+      <div class="det-body">
+        <p>The Wi-Fi is a mesh network with two units: one by the upstairs TV and one by the downstairs bedroom TV.</p>
+        <p>Start by turning Wi-Fi off and back on on your phone or laptop. That clears most hiccups.</p>
+        <p>If one part of the house is weak or offline, unplug the unit nearest you for about 30 seconds, then plug it back in and give it two minutes.</p>
+        <p>If the whole house is down, open the outdoor breaker panel and flip the breaker labeled <strong>Wi-Fi</strong> off for 30 seconds, then back on.</p>
+        <p>The network also restarts itself every night, so a stubborn problem usually clears by morning. If it's still down, message the host team on Airbnb and we'll get it back up.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h7l-1 8 10-12h-7z"/></svg>Power's out in part of the house<span class="plus">+</span></summary>
+      <div class="det-body"><p>A breaker may have tripped. The <strong>electric panel is outside</strong>, on the front wall to the <strong>left of the garage door</strong> as you face the house. Find any switch sitting in the middle and flip it firmly off, then on.</p></div>
+    </details>
+
+    <details>
+      <summary><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Locked out of a bedroom or bathroom<span class="plus">+</span></summary>
+      <div class="det-body"><p>If a privacy lock clicks shut behind you, there's a <strong>small door-release tool in the upstairs hallway closet</strong> with the spares. Push it straight into the little hole in the center of the outside knob to pop it open.</p></div>
+    </details>
+
+    <details>
+      <summary><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M8 21h8"/></svg>Can't find a TV remote<span class="plus">+</span></summary>
+      <div class="det-body"><p>There's a <strong>spare remote in the upstairs hallway closet</strong> with the batteries and bulbs. Please leave all remotes in the house at check-out so the next guests aren't stuck.</p></div>
+    </details>
+  </section>
+
+  <!-- ============ SAFETY ============ -->
+  <section id="safety">
+    <div class="s-head">
+      <svg class="s-dot" viewBox="0 0 15 19" aria-hidden="true"><path d="M7.5 0C3.7 0 .6 3 .6 6.9c0 4.8 6.9 12 6.9 12s6.9-7.2 6.9-12C14.4 3 11.3 0 7.5 0z" fill="var(--pin)"/><circle cx="7.5" cy="6.9" r="2.8" fill="var(--pine)"/></svg>
+      <div><div class="s-label">This is bear country</div><h2 class="s-title">Tahoe safety</h2></div>
+    </div>
+
+    <div class="card">
+      <h3>🐻 Bears</h3>
+      <p>Tahoe's black bears are smart, common, and after one thing: food. They're rarely aggressive, but a car or kitchen that smells of food will draw them in.</p>
+      <ul class="check" style="margin-top:10px;">
+        <li>All trash goes in the <strong>bear bin</strong> (in the driveway, you can't miss it), latched shut. Never leave bags outside it.</li>
+        <li>Keep <strong>food out of the car and garage</strong>, and lock your car every time.</li>
+        <li>Keep ground-floor doors and windows closed when you're out or asleep.</li>
+        <li>See a bear? Don't run or approach. Make noise, look big, and give it room to leave.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>You're at 6,200 feet</h3>
+      <p>You'll feel the altitude at first. Drink more water than usual, go easy on alcohol the first day, and take it slow if you feel lightheaded or headachy. That eases as your body adjusts.</p>
+    </div>
+
+    <div class="card">
+      <h3>The lake is cold, respect it</h3>
+      <p>Lake Tahoe stays cold year-round and there are no lifeguards. Cold water saps strength fast, so wear a life vest for paddling and keep a close eye on kids at the shore.</p>
+    </div>
+
+    <div class="card">
+      <h3>Winter driving</h3>
+      <p>Mountain weather turns quickly. Carry chains from about November through April, keep the tank above half, and check conditions before you drive. <a href="https://tahoeroads.info" target="_blank" rel="noopener">tahoeroads.info</a> is the best local source, or use Caltrans QuickMap or dial <strong>511</strong>.</p>
+    </div>
+
+    <div class="card">
+      <h3>Fire & detectors</h3>
+      <p>Gas BBQ only. No charcoal, fire pits, or campfires, and no fireworks (both illegal and dangerous here). Smoke and carbon-monoxide detectors are installed throughout, so please don't disable them.</p>
+    </div>
+  </section>
+
+  <!-- ============ HOUSE RULES ============ -->
+  <section id="rules">
+    <div class="s-head">
+      <svg class="s-dot" viewBox="0 0 15 19" aria-hidden="true"><path d="M7.5 0C3.7 0 .6 3 .6 6.9c0 4.8 6.9 12 6.9 12s6.9-7.2 6.9-12C14.4 3 11.3 0 7.5 0z" fill="var(--pin)"/><circle cx="7.5" cy="6.9" r="2.8" fill="var(--pine)"/></svg>
+      <div><div class="s-label">Being a good neighbor</div><h2 class="s-title">House rules</h2></div>
+    </div>
+    <div class="card">
+      <dl class="kv">
+        <dt>Quiet hours</dt><dd>9:00 PM to 8:00 AM (no amplified sound outdoors)</dd>
+        <dt>Max guests</dt><dd>8</dd>
+        <dt>Parties</dt><dd>Not permitted</dd>
+        <dt>Trash day</dt><dd>Wednesdays, everything in the bear bin</dd>
+        <dt>Parking</dt><dd>On property only, no street parking</dd>
+        <dt>Smoking</dt><dd>No smoking anywhere on the property</dd>
+      </dl>
+      <div class="note">This is a residential neighborhood. The official <strong>Placer County Good Neighbor flyer</strong> is posted by the front door and in each bedroom. Please give it a look, since those rules are county-enforced.</div>
+    </div>
+  </section>
+
+  <!-- ============ EXPLORE ============ -->
+  <section id="explore">
+    <div class="s-head">
+      <svg class="s-dot" viewBox="0 0 15 19" aria-hidden="true"><path d="M7.5 0C3.7 0 .6 3 .6 6.9c0 4.8 6.9 12 6.9 12s6.9-7.2 6.9-12C14.4 3 11.3 0 7.5 0z" fill="var(--pin)"/><circle cx="7.5" cy="6.9" r="2.8" fill="var(--pine)"/></svg>
+      <div><div class="s-label">Get out there</div><h2 class="s-title">Explore Tahoe</h2></div>
+    </div>
+
+    <p class="muted" style="margin:-4px 0 14px;font-size:15px;">Here's what's nearby. Tap a season to filter the list.</p>
+
+    <div class="seasonbar" role="group" aria-label="Filter by season">
+      <button data-season="all" aria-pressed="true">All year</button>
+      <button data-season="summer" aria-pressed="false">Summer</button>
+      <button data-season="winter" aria-pressed="false">Winter</button>
+    </div>
+
+    <div class="maplink">
+      <img src="rainbow_retreat_map.png" alt="Illustrated map of Rainbow Retreat and nearby Lake Tahoe attractions" onerror="this.style.display='none';this.nextElementSibling.style.display='block';" />
+      <div class="mapfallback">Area map. Keep <strong>rainbow_retreat_map.png</strong> in the same folder as this page.</div>
+    </div>
+
+    <div class="grid" id="spots">
+      <div class="spot" data-season="summer">
+        <div class="top"><h4>Kings Beach &amp; the shore</h4><span class="dist">9-min walk</span></div>
+        <p>Sandy public beach with shops and restaurants right in town. The easiest outing from the house.</p>
+        <div class="spot-foot">
+          <span class="tag">Beach</span>
+          <div class="spot-links">
+            <a class="spot-link" href="https://www.google.com/maps/search/?api=1&amp;query=Kings+Beach+State+Recreation+Area" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Directions</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="spot" data-season="all">
+        <div class="top"><h4>Groceries &amp; coffee</h4><span class="dist">~3 min drive</span></div>
+        <p>Safeway for groceries, Starbucks for coffee.</p>
+        <div class="spot-foot">
+          <span class="tag">Essentials</span>
+          <div class="spot-links">
+            <a class="spot-link" href="https://www.google.com/maps/search/?api=1&amp;query=Safeway+Kings+Beach+CA" target="_blank" rel="noopener">Safeway</a>
+            <a class="spot-link" href="https://www.google.com/maps/search/?api=1&amp;query=Starbucks+Kings+Beach+CA" target="_blank" rel="noopener">Starbucks</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="spot" data-season="summer">
+        <div class="top"><h4>Kings Beach Mini Golf</h4><span class="dist">5-min walk</span></div>
+        <p>Right down the street. Easy fun with the kids.</p>
+        <div class="spot-foot">
+          <span class="tag">Family</span>
+          <div class="spot-links">
+            <a class="spot-link" href="https://www.google.com/maps/search/?api=1&amp;query=Kings+Beach+Miniature+Golf" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Directions</a>
+            <a class="spot-link" href="https://kingsbeachminiaturegolf.com" target="_blank" rel="noopener">Website</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="spot" data-season="summer">
+        <div class="top"><h4>Old Brockway Golf Course</h4><span class="dist">~3 min drive</span></div>
+        <p>Historic 9-hole course a few minutes away.</p>
+        <div class="spot-foot">
+          <span class="tag">Golf</span>
+          <div class="spot-links">
+            <a class="spot-link" href="https://www.google.com/maps/search/?api=1&amp;query=Old+Brockway+Golf+Course+Kings+Beach" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Directions</a>
+            <a class="spot-link" href="https://www.oldbrockway.com" target="_blank" rel="noopener">Website</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="spot" data-season="summer">
+        <div class="top"><h4>Tahoe Rim Trail</h4><span class="dist">~6 min drive</span></div>
+        <p>Big views, and you can pick your distance.</p>
+        <div class="spot-foot">
+          <span class="tag">Hiking</span>
+          <div class="spot-links">
+            <a class="spot-link" href="https://www.google.com/maps/search/?api=1&amp;query=Tahoe+Rim+Trail+Tahoe+City" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Directions</a>
+            <a class="spot-link" href="https://tahoerimtrail.org" target="_blank" rel="noopener">Trail info</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="spot" data-season="summer">
+        <div class="top"><h4>Monkey Rock Trail</h4><span class="dist">~14 min drive</span></div>
+        <p>Short, scenic climb to a fun rock outcrop over the lake.</p>
+        <div class="spot-foot">
+          <span class="tag">Hiking</span>
+          <div class="spot-links">
+            <a class="spot-link" href="https://www.google.com/maps/search/?api=1&amp;query=Monkey+Rock+Trailhead+Incline+Village" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Directions</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="spot" data-season="summer">
+        <div class="top"><h4>Ziplining at Treetop Adventure</h4><span class="dist">~15 min drive</span></div>
+        <p>Ropes courses and zip lines in the pines.</p>
+        <div class="spot-foot">
+          <span class="tag">Family</span>
+          <div class="spot-links">
+            <a class="spot-link" href="https://www.google.com/maps/search/?api=1&amp;query=Tahoe+Vista+Treetop+North+Tahoe+Regional+Park" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Directions</a>
+            <a class="spot-link" href="https://tahoetreetop.com" target="_blank" rel="noopener">Book</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="spot" data-season="winter">
+        <div class="top"><h4>Northstar California</h4><span class="dist">~10-17 min drive</span></div>
+        <p>The closest big mountain, with skiing, riding, and a lively village.</p>
+        <div class="spot-foot">
+          <span class="tag">Ski</span>
+          <div class="spot-links">
+            <a class="spot-link" href="https://www.google.com/maps/search/?api=1&amp;query=Northstar+California+Resort" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Directions</a>
+            <a class="spot-link" href="https://www.northstarcalifornia.com" target="_blank" rel="noopener">Website</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="spot" data-season="winter">
+        <div class="top"><h4>Diamond Peak</h4><span class="dist">~15 min drive</span></div>
+        <p>Family-friendly resort with great lake views.</p>
+        <div class="spot-foot">
+          <span class="tag">Ski</span>
+          <div class="spot-links">
+            <a class="spot-link" href="https://www.google.com/maps/search/?api=1&amp;query=Diamond+Peak+Ski+Resort" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Directions</a>
+            <a class="spot-link" href="https://www.diamondpeak.com" target="_blank" rel="noopener">Website</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="spot" data-season="winter">
+        <div class="top"><h4>Mt. Rose</h4><span class="dist">~20 min drive</span></div>
+        <p>Highest base elevation around, so it often has the best early and late-season snow.</p>
+        <div class="spot-foot">
+          <span class="tag">Ski</span>
+          <div class="spot-links">
+            <a class="spot-link" href="https://www.google.com/maps/search/?api=1&amp;query=Mt+Rose+Ski+Tahoe" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Directions</a>
+            <a class="spot-link" href="https://skirose.com" target="_blank" rel="noopener">Website</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="spot" data-season="winter">
+        <div class="top"><h4>Palisades Tahoe</h4><span class="dist">~32 min drive</span></div>
+        <p>Big-name terrain, worth the drive on a powder day.</p>
+        <div class="spot-foot">
+          <span class="tag">Ski</span>
+          <div class="spot-links">
+            <a class="spot-link" href="https://www.google.com/maps/search/?api=1&amp;query=Palisades+Tahoe" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Directions</a>
+            <a class="spot-link" href="https://www.palisadestahoe.com" target="_blank" rel="noopener">Website</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="spot" data-season="all">
+        <div class="top"><h4>Day trip: Truckee</h4><span class="dist">~20 min drive</span></div>
+        <p>Historic downtown with great food and shopping.</p>
+        <div class="spot-foot">
+          <span class="tag">Day trip</span>
+          <div class="spot-links">
+            <a class="spot-link" href="https://www.google.com/maps/search/?api=1&amp;query=Downtown+Truckee+CA" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Directions</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="spot" data-season="all">
+        <div class="top"><h4>Reno-Tahoe Airport</h4><span class="dist">~50 min drive</span></div>
+        <p>Your closest airport for arrivals and departures.</p>
+        <div class="spot-foot">
+          <span class="tag">Travel</span>
+          <div class="spot-links">
+            <a class="spot-link" href="https://www.google.com/maps/search/?api=1&amp;query=Reno-Tahoe+International+Airport" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Directions</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FUN FACTS ============ -->
+  <section id="about">
+    <div class="s-head">
+      <svg class="s-dot" viewBox="0 0 15 19" aria-hidden="true"><path d="M7.5 0C3.7 0 .6 3 .6 6.9c0 4.8 6.9 12 6.9 12s6.9-7.2 6.9-12C14.4 3 11.3 0 7.5 0z" fill="var(--pin)"/><circle cx="7.5" cy="6.9" r="2.8" fill="var(--pine)"/></svg>
+      <div><div class="s-label">While you're here</div><h2 class="s-title">A few Tahoe facts</h2></div>
+    </div>
+    <div class="factgrid">
+      <div class="fact"><div class="n">1,645 ft</div><div class="t">Max depth, 2nd-deepest lake in the U.S.</div></div>
+      <div class="fact"><div class="n">6,225 ft</div><div class="t">Surface elevation above sea level</div></div>
+      <div class="fact"><div class="n">72 mi</div><div class="t">Of shoreline circling the lake</div></div>
+      <div class="fact"><div class="n">~63 ft</div><div class="t">How deep you can often see into the water</div></div>
+    </div>
+    <div class="card" style="margin-top:12px;">
+      <p class="muted" style="font-size:14.5px;">Kings Beach sits on Tahoe's sunny north shore and grew up around the old Brockway resort era. It's one of the few walkable beach towns on the lake, so the sand, the shops, and dinner are all a few minutes from the door.</p>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer>
+    <div class="fname">Rainbow Retreat</div>
+    <p>Enjoy every minute of it.<br>Questions? Message the host team in the Airbnb app.</p>
+    <p style="margin-top:14px;font-size:12px;">Last updated <span class="ph">REPLACE: date</span></p>
+  </footer>
+
+</div>
+
+<script>
+  // Copy Wi-Fi password
+  (function(){
+    var btn=document.getElementById('copywifi');
+    if(!btn)return;
+    btn.addEventListener('click',function(){
+      var pass=document.getElementById('pass').innerText.trim();
+      if(navigator.clipboard){
+        navigator.clipboard.writeText(pass).then(function(){
+          var t=btn.innerText;btn.innerText='Copied ✓';
+          setTimeout(function(){btn.innerText=t;},1600);
+        });
+      }
+    });
+  })();
+
+  // Copy address
+  (function(){
+    var btn=document.getElementById('copyaddr');
+    if(!btn)return;
+    btn.addEventListener('click',function(){
+      if(navigator.clipboard){
+        navigator.clipboard.writeText('8772 Rainbow Ave, Kings Beach, CA 96143').then(function(){
+          var t=btn.innerText;btn.innerText='Copied ✓';
+          setTimeout(function(){btn.innerText=t;},1600);
+        });
+      }
+    });
+  })();
+
+  // Season filter
+  (function(){
+    var buttons=document.querySelectorAll('.seasonbar button');
+    var spots=document.querySelectorAll('#spots .spot');
+    buttons.forEach(function(b){
+      b.addEventListener('click',function(){
+        var season=b.getAttribute('data-season');
+        buttons.forEach(function(x){x.setAttribute('aria-pressed', x===b ? 'true':'false');});
+        spots.forEach(function(s){
+          var ss=s.getAttribute('data-season');
+          var show=(season==='all')||(ss===season)||(ss==='all');
+          s.classList.toggle('hide',!show);
+        });
+      });
+    });
+  })();
+</script>
